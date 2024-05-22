@@ -23,9 +23,9 @@ services:
             database:
                 condition: service_healthy
         environment:
-            - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/"${MYSQL_DATABASE}"
+            - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/${MYSQL_DATABASE}
             - SPRING_DATASOURCE_USERNAME=root
-            - SPRING_DATASOURCE_PASSWORD="${MYSQL_ROOT_PASSWORD}"
+            - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
         network_mode: "host"
     frontend:
         image: distributed_systems_frontend
