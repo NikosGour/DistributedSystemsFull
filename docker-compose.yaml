@@ -21,4 +21,14 @@ services:
             - SPRING_DATASOURCE_USERNAME=root
             - SPRING_DATASOURCE_PASSWORD="${MYSQL_ROOT_PASSWORD}"
         network_mode: "host"
+    frontend:
+        image: distributed_systems_frontend
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        expose:
+            - 3000
+        depends_on:
+            - backend
+        network_mode: "host"
 
