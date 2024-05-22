@@ -6,6 +6,11 @@ services:
         environment:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
             - MYSQL_DATABASE=${MYSQL_DATABASE}
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            timeout: 20s
+            interval: 20s
+            retries: 5
         network_mode: "host"
     backend:
         image: distributed_systems_backend
@@ -15,7 +20,8 @@ services:
         expose:
             - 7979
         depends_on:
-            - database
+            database:
+                condition: service_healthy
         environment:
             - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/"${MYSQL_DATABASE}"
             - SPRING_DATASOURCE_USERNAME=root
