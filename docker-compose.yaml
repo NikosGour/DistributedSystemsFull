@@ -6,8 +6,8 @@ services:
         ports:
             - "3306:3306"
         environment:
-            - MYSQL_ROOT_PASSWORD=nikos2002
-            - MYSQL_DATABASE=SpringBootDB
+            MYSQL_ROOT_PASSWORD: nikos2002
+            MYSQL_DATABASE: SpringBootDB
         network_mode: "host"
     backend:
         image: distributed_systems_backend
