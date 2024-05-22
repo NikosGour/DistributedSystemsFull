@@ -18,5 +18,9 @@ services:
             - "7979:7979"
         depends_on:
             - database
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/SpringBootDB
+            - SPRING_DATASOURCE_USERNAME=root
+            - SPRING_DATASOURCE_PASSWORD=nikos2002
         network_mode: "host"
 
