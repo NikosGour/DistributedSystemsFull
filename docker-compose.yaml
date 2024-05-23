@@ -23,7 +23,7 @@ services:
             database:
                 condition: service_healthy
         environment:
-            - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/${MYSQL_DATABASE}
+            - SPRING_DATASOURCE_URL=jdbc:mysql://${BASE_URL}:3306/${MYSQL_DATABASE}
             - SPRING_DATASOURCE_USERNAME=root
             - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
         healthcheck:
@@ -47,6 +47,8 @@ services:
             dockerfile: Dockerfile
         expose:
             - 3000
+        environment:
+            - REACT_APP_BASE_URL=http://${BASE_URL}:7979
         depends_on:
             backend:
                 condition: service_healthy
