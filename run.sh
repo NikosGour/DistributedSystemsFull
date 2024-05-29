@@ -1,6 +1,6 @@
 #!/bin/bash
-IP=curl ifconfig.me
+IP=`curl -s ifconfig.me`
 
-echo $IP
-# sed -i "s|BASE_URL=.*|BASE_URL=${IP}|" .env
-# docker compose up --build
+echo "The machine's ip is =${IP}"
+sed -i "s|^BASE_URL=.*|BASE_URL=${IP}|" .env
+docker compose up --build
