@@ -13,6 +13,8 @@ services:
             timeout: 20s
             interval: 20s
             retries: 5
+        volumes:
+            - database_data:/var/lib/mysql
     backend:
         image: distributed_systems_backend
         build:
@@ -56,4 +58,7 @@ services:
         depends_on:
             backend:
                 condition: service_healthy
+
+volumes:
+    database_data:
 
