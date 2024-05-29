@@ -3,6 +3,8 @@ services:
         image: mysql:latest
         expose:
             - 3306
+        ports:
+            - "3306:3306"
         environment:
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
             - MYSQL_DATABASE=${MYSQL_DATABASE}
@@ -11,7 +13,6 @@ services:
             timeout: 20s
             interval: 20s
             retries: 5
-        network_mode: "host"
     backend:
         image: distributed_systems_backend
         build:
@@ -19,11 +20,13 @@ services:
             dockerfile: Dockerfile
         expose:
             - 7979
+        ports:
+            - "7979:7979"
         depends_on:
             database:
                 condition: service_healthy
         environment:
-            - SPRING_DATASOURCE_URL=jdbc:mysql://${DATABASE_URL}:3306/${MYSQL_DATABASE}
+            - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/${MYSQL_DATABASE}
             - SPRING_DATASOURCE_USERNAME=root
             - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
         healthcheck:
@@ -39,7 +42,6 @@ services:
             timeout: 20s
             interval: 20s
             retries: 5
-        network_mode: "host"
     frontend:
         image: distributed_systems_frontend
         build:
@@ -47,10 +49,11 @@ services:
             dockerfile: Dockerfile
         expose:
             - 3000
+        ports:
+            - "3000:3000"
         environment:
             - REACT_APP_BASE_URL=http://${BASE_URL}:7979
         depends_on:
             backend:
                 condition: service_healthy
-        network_mode: "host"
 
