@@ -28,37 +28,4 @@ pipeline {
 				'''
 			}
 		}
-
-		stage('Update git submodules'){
-			steps {
-				sh '''
-					git submodule update --init --recursive
-				'''
-			}
-		}
-
-		stage('Docker compose build'){
-			steps {
-				sh '''
-					docker compose build
-				'''
-			}
-		}
-
-		stage('Docker compose down previous'){
-			steps {
-				sh '''
-					docker compose down
-				'''
-			}
-		}
-
-		stage('Docker compose up'){
-			steps {
-				sh '''
-					docker compose up -d
-				'''
-			}
-		}
-	}
 }
